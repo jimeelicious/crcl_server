@@ -91,7 +91,7 @@ class patient:
 			print("[ ! ]   Patient is overweight. (Actual/Ideal) = {}, which is >{}.<br>".format(round(wtratio,2), ABWlimit))
 			return(ABW)
 		elif (wtratio < 1.0):
-			print("[ ! ]   Patient is underweight. Actual ({} kg) < Ideal ({} kg).<br>".format(weight, IBW))
+			print("[ ! ]   Patient is underweight. Actual ({} kg) < Ideal ({} kg).<br>".format(weight, round(IBW,2)))
 			return(weight)
 		else:
 #			print("Within ideal limits")
@@ -248,7 +248,7 @@ print("SCr = {} mg/dL.<br>".format(scr))
 print("Body weight used in the formula {} kg.<br>".format(round(formulaWt,2)))
 print("<br><br>")
 
-print("((140 - {})* {}) / (72 * {})   ".format(age, formulaWt, scr))
+print("[((140 - {})* {}) / (72 * {})]   ".format(age, formulaWt, scr))
 if (gender == "f"):
 	print('* 0.85  ')
 print('=  ')
