@@ -149,13 +149,14 @@ if None in ({scr, age, gender, height, hUnit, weight, wUnit}):
 	sys.exit()
 else:
 	# Validates input
+	ageRE = re.compile(r"^[0-9]{1,3}$")
 	digitRE = re.compile(r"^[0-9]{1,3}\.?[0-9]{0,3}$")
 	strRE = re.compile(r"^[A-Za-z]{1,6}$")
-	if (not digitRE.match(scr)) or (not digitRE.match(age)) or (not digitRE.match(weight)) or (not digitRE.match(height)):
+	if (not digitRE.match(scr)) or (not ageRE.match(age)) or (not digitRE.match(weight)) or (not digitRE.match(height)):
 		print("<Title>Error</title>Please verify the corrent input of the parameters:")
 		if not digitRE.match(scr):
 			print(" scr ")
-		if not digitRE.match(age):
+		if not ageRE.match(age):
 			print(" age ")
 		if not digitRE.match(weight):
 			print(" weight ")
