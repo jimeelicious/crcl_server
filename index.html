@@ -1,0 +1,195 @@
+<head>
+<title>Creatinine Clearance Calculator</title>
+<style>
+body {
+	font-family: "Trebuchet MS";
+	font-size: small;
+}
+
+::selection {
+	color: black;
+	background:#fff200;
+}
+
+h1 {
+	text-align: center;
+}
+
+.container {
+	margin: 1em;
+	background: white;
+	border-radius: 0.5em;
+}
+
+::placeholder {
+	color: #999;
+}
+
+label {
+	color: #777;
+	padding: 1em 1em 1em 0;
+	float: right;
+}
+
+input[type=text], select, textarea {
+	width: 100%;
+	font-size: 1.2em;
+	padding: 0.8em;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	border-sizing: border-box;
+	resize: vertical;
+}
+
+input[type=submit].form {
+	margin: 0.5em;
+	color: #ddd;
+	padding: 0.7em 1.2em;
+	border-radius: 0.4em;
+	background-color: #154360;
+	font-weight:bold;
+	font-size: 1.5em;
+	float: right;
+	margin-right: 35%
+}
+
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.col-25 {
+	float: left;
+	width: 25%;
+	margin-top: 6px;
+}
+
+#col-label {
+	width: 35%;
+}
+
+.col-30 {
+	float: left;
+	width: 30%;
+	margin-top: 6px;
+}
+
+.col-15 {
+	float: left;
+	width: 15%;
+	margin-top: 6px;
+}
+
+@media only screen and (max-width: 990px) {
+	.container {
+	  padding: 1.8em;
+	  background: #E1EAEF;
+  }
+	.col-25, .col-50, input[type=submit] {
+	  width: 100%;
+	  margin-top: 0;
+  }
+	label {
+	  float: left;
+  }
+	.col-30 {
+	  width: 100%;
+  }
+	#col-label {
+	width: 100%;
+  }
+	.col-15 {
+	  width: 50%;
+  }
+	input[type=submit].form {
+	  float: none;
+	  width: 97%;
+	  margin-top: 1.3em;
+	  margin-right: 0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+<h1>
+Creatinine Clearance Estimator Tool
+</h1>
+<div class="container">
+<form id="" name="form" method="post" action="cgi-bin/crcl.py"/>
+<div class="row">
+  <div class="col-25" id="col-label">
+	<label for="age">Age</label>
+  </div>
+  <div class="col-30">
+	<input type="text" name="age" maxlength="3" size="1" value="" placeholder="Enter the age in years" autocomplete="off">
+  </div>
+</div>
+<div class="row">
+  <div class="col-25" id="col-label">
+	<label for="gender">Sex</label>
+  </div>
+  <div class="col-30">
+    <select name="gender">
+	<option value="m">Male</option>
+	<option value="f">Female</option>
+    </select>
+  </div>
+</div>
+<div class="row">
+  <div class="col-25" id="col-label">
+	<label for="height">Height</label>
+  </div>
+  <div class="col-15">
+	<input type="text" name="height" maxlength="3" size="1" value="" placeholder="Enter height here" autocomplete="off">
+  </div>
+  <div class="col-15">
+	<select name="hUnit">
+	  <option value="in">inches</option>
+	  <option value="cm">centimeters</option>
+	</select>
+  </div>
+</div>
+<div class="row">
+  <div class="col-25" id="col-label">
+	<label for="weight">Weight</label>
+  </div>
+  <div class="col-15">
+	<input type="text" name="weight" maxlength="3" size="1" value="" placeholder="Enter weight here" autocomplete="off">
+  </div>
+  <div class="col-15">
+	<select name="wUnit">
+	  <option value="kg">kilograms</option>
+	  <option value="lbs">pounds</option>
+	</select>
+  </div>
+</div>
+<div class="row">
+  <div class="col-25" id="col-label">
+	<label for="scr">Serum creatinine</label>
+  </div>
+  <div class="col-30">
+	<input type="text" name="scr" maxlength="4" size="1" value="" placeholder="Enter SCr in mg/dL (e.g. 0.9)" autocomplete="off">
+  </div>
+</div>
+<div class="row">
+ <input type="submit" value="Submit" class="form">
+</div>
+</form>
+</div>
+<h2>Assumptions</h2>
+This calculator is based off of <a href="https://www.whhs.com/">Washington Hospital</a> protocols. Some of its assumptions are that
+<ul>
+	<li>Serum creatinine is rounded to 0.8 if the actual value is below</li>
+	<li>Adjusted body weight is used if actual weight is greater or equal to 120% of ideal body weight</li>
+	<li>Ideal body weight is used if actual weight is <120% of ideal body weight</li>
+</ul>
+Some special assumptions not part of the protocol are that
+<ul>
+	<li>The Hume equation is used if the patient is less than 60 inches to calculate ideal body weight</li>
+</ul>
+<br><br>
+Return back to the <a href="/">home page</a>.
+</body>
