@@ -238,12 +238,19 @@ scr = p.SCr()
 
 ####################################################	
 
-
 print("<br><div style='border: solid blue 2px; padding: 10px; width: 550px;'>")
-print("The estimated creatinine clearance for this patient is <b>{} mL/min</b>.".format(round(p.CrCl(),2)))
+print("The estimated creatinine clearance for this patient is ")
+# Colors answer by ranges
+if crclInt > 60:
+        print("<span style='background: #baebae;'><b>")
+elif 30 < crclInt <= 60:
+        print("<span style='background: #fff200;'><b>")
+elif crclInt <= 30:
+        print("<span style='background: #c25400; color: white;'><b>")
+print("{} mL/min</b></span>.".format(round(p.CrCl(),2)))
 print("<br><span style='font-size:x-small;'><i>Calculate <a href='{}'>another</a> patient.</i></span>".format(url))
-print("</div>")
-if whhsProtocols == "yes":
+
+print("</div>")if whhsProtocols == "yes":
 	print("<span style='font-size:x-small; color: #999;'>This result complies with WHHS renal dosing protocols.</span>")
 print("<br><br>")
 print("<br><br>")
