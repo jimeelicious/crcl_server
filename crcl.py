@@ -164,12 +164,24 @@ else:
 			print(" height ")
 		print(returnMsg)
 		sys.exit()
+        # Makes sure age is in appropriate range, 0-140 and warns if less than 18 years
+        elif int(age) > int(140):
+                print("<title>Error</title>Age cannot be greater than 140.")
+                print(returnMsg)
+                sys.exit()
+        elif int(age) < (int(18)) and int(age) > (int(0)):
+                print("[ ! ]  This is a pediatric patient. Use caution with assessment.<br>")
+        elif int(age) < int(1):
+                print("<title>Error</title>Age cannot be less than 1.")
+                print(returnMsg)
+                sys.exit()
+	# Throws an error if form is bypassed via GET request
 	elif (not strRE.match(gender)) or (not strRE.match(hUnit)) or (not strRE.match(wUnit)):
 		print("<title>Error</title>Please use the web form to submit data.")
 		print(returnMsg)
 		sys.exit()
 
-# If not, turn them to floats/integers/strings.
+# If not, turn the variables into floats/integers/strings.
 scr = float(form.getvalue("scr"))
 age = int(form.getvalue("age"))
 gender = str(form.getvalue("gender"))
@@ -177,8 +189,6 @@ height = float(form.getvalue("height"))
 hUnit = str(form.getvalue("hUnit"))
 weight = float(form.getvalue("weight"))
 wUnit = str(form.getvalue("wUnit"))
-
-
 
 ####################################################	
 ## Input for development purposes only	##
@@ -203,7 +213,7 @@ wUnit = str(form.getvalue("wUnit"))
 #Script
 p = patient(age, gender, weight, height, scr)
 
-print("<title>{} yo{} Result</title>".format(age, gender))
+print("<title>{} yo{} result</title>".format(age, gender))
 print("<body style='font-family: Trebuchet MS; width: 700px;'>")
 
 
