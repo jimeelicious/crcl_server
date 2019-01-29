@@ -226,6 +226,7 @@ if wUnit == "lbs":
 IBW = p.IBW()
 formulaWt = p.formulaBW()
 scr = p.SCr()
+crclInt = round(p.CrCl(),0)
 
 ####################################################	
 ## Input for development purposes only	##
@@ -238,6 +239,7 @@ scr = p.SCr()
 
 ####################################################	
 
+# Script output
 print("<br><div style='border: solid blue 2px; padding: 10px; width: 550px;'>")
 print("The estimated creatinine clearance for this patient is ")
 # Colors answer by ranges
