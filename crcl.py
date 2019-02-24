@@ -5,8 +5,8 @@
 ############### Settings ###############
 ########################################
 
-# Form URL
-url = "//localhost/"
+# Return to form URL
+url = "javascript:history.back()"
 
 # Limits on when to use adjusted body weight, e.g. 1.2 = >120% of IBW
 ABWlimit = 1.2
@@ -128,9 +128,7 @@ returnMsg = "<br>Return <a href='{}'>back</a>".format(url)
 
 print("Content-type: text/html")
 print("")	
-print("<!DOCTYPE html>")
-print("<style>body { font-family: 'Trebuchet MS' }</style>")
-print("</head>")
+print("<!DOCTYPE html><head><style>body { font-family: 'Trebuchet MS' } ::selection { color: black; background: #fff200; } </style></head>")
 
 # Obtain user input
 # Note that if no value is supplied, variable obtains a value "None" (NoneType, not a String Type)
@@ -148,12 +146,12 @@ if None in ({scr, age, gender, height, hUnit, weight, wUnit}):
 	print(returnMsg)
 	sys.exit()
 else:
-	# Validates input
+	# Validates input. If not valid run error.
 	ageRE = re.compile(r"^[0-9]{1,3}$")
 	digitRE = re.compile(r"^[0-9]{1,3}\.?[0-9]{0,3}$")
 	strRE = re.compile(r"^[A-Za-z]{1,6}$")
 	if (not digitRE.match(scr)) or (not ageRE.match(age)) or (not digitRE.match(weight)) or (not digitRE.match(height)):
-		print("<Title>Error</title>Please verify the corrent input of the parameters:")
+		print("<title>Error</title>Please verify the corrent input of the parameters:")
 		if not digitRE.match(scr):
 			print(" scr ")
 		if not ageRE.match(age):
@@ -164,18 +162,18 @@ else:
 			print(" height ")
 		print(returnMsg)
 		sys.exit()
-        # Makes sure age is in appropriate range, 0-140 and warns if less than 18 years
-        elif int(age) > int(140):
-                print("<title>Error</title>Age cannot be greater than 140.")
-                print(returnMsg)
-                sys.exit()
-        elif int(age) < (int(18)) and int(age) > (int(0)):
-                print("[ ! ]  This is a pediatric patient. Use caution with assessment.<br>")
-        elif int(age) < int(1):
-                print("<title>Error</title>Age cannot be less than 1.")
-                print(returnMsg)
-                sys.exit()
-	# Throws an error if form is bypassed via GET request
+	# Makes sure age is in appropriate range
+	elif int(age) > int(140):
+		print("<title>Error</title>Age cannot be greater than 140.")
+		print(returnMsg)
+		sys.exit()
+	elif int(age) < (int(18)) and int(age) > (int(0)):
+		print("[ ! ]  This is a pediatric patient. Use caution with assessment.<br>")
+	elif int(age) < int(1):
+		print("<title>Error</title>Age cannot be less than 1.")
+		print(returnMsg)
+		sys.exit()
+	# Throws an error if user tries to modify GET request
 	elif (not strRE.match(gender)) or (not strRE.match(hUnit)) or (not strRE.match(wUnit)):
 		print("<title>Error</title>Please use the web form to submit data.")
 		print(returnMsg)
@@ -189,6 +187,7 @@ height = float(form.getvalue("height"))
 hUnit = str(form.getvalue("hUnit"))
 weight = float(form.getvalue("weight"))
 wUnit = str(form.getvalue("wUnit"))
+
 
 ####################################################	
 ## Input for development purposes only	##
@@ -228,37 +227,32 @@ formulaWt = p.formulaBW()
 scr = p.SCr()
 crclInt = round(p.CrCl(),0)
 
-####################################################	
-## Input for development purposes only	##
-
 #print("The height is {} inches".format(height))
 #print("The Kg weight is {} kg".format(weight))
 #print("The patient's ideal body weight is {} kg.".format(p.IBW()))
 #print("SCr = {} mg/dL".format(p.SCr()))
 #print("Body weight used in the formula {} kg".format(p.formulaBW()))
 
-####################################################	
 
-# Script output
+# Output
 print("<br><div style='border: solid blue 2px; padding: 10px; width: 550px;'>")
 print("The estimated creatinine clearance for this patient is ")
-# Colors answer by ranges
 if crclInt > 60:
-        print("<span style='background: #baebae;'><b>")
+	print("<span style='background: #baebae;'><b>")
 elif 30 < crclInt <= 60:
-        print("<span style='background: #fff200;'><b>")
+	print("<span style='background: #fff200;'><b>")
 elif crclInt <= 30:
-        print("<span style='background: #c25400; color: white;'><b>")
+	print("<span style='background: #c25400; color: white;'><b>")
 print("{} mL/min</b></span>.".format(round(p.CrCl(),2)))
 print("<br><span style='font-size:x-small;'><i>Calculate <a href='{}'>another</a> patient.</i></span>".format(url))
-
-print("</div>")if whhsProtocols == "yes":
+print("</div>")
+if whhsProtocols == "yes":
 	print("<span style='font-size:x-small; color: #999;'>This result complies with WHHS renal dosing protocols.</span>")
 print("<br><br>")
 print("<br><br>")
 
 print("Calculations: <br>")
-print("((140 - age)* wt) / (72 * SCr) --> if female, multiply 0.85<br><br>".format(age, formulaWt, scr))
+print("[((140 - age)* wt) / (72 * SCr)] --> if female, multiply 0.85<br><br>".format(age, formulaWt, scr))
 print("<div style='font-size: x-small;'>")
 print("<span style='color: #999;'>")
 print("The patient's ideal body weight is {} kg.<br>".format(round(IBW,2)))
