@@ -1,5 +1,12 @@
 <head>
 <title>Creatinine Clearance Calculator</title>
+
+<meta property="og:image:width" content="279">
+<meta property="og:image:height" content="279">
+<meta property="og:description" content="A calculator for an estimated creatinine clearance using protocols from Washington Hospital.">
+<meta property="og:title" content="Creatinine Clearance Estimator">
+<meta property="og:image" content="https://www.sciencefriday.com/wp-content/uploads/2018/01/iv-min.png">
+
 <style>
 body {
 	font-family: "Trebuchet MS";
@@ -118,7 +125,7 @@ input[type=submit].form {
 Creatinine Clearance Estimator Tool
 </h1>
 <div class="container">
-<form id="" name="form" method="post" action="cgi-bin/crcl.py"/>
+<form id="" name="form" method="post" action="/result/crcl.whhs.py"/>
 <div class="row">
   <div class="col-25" id="col-label">
 	<label for="age">Age</label>
@@ -180,7 +187,7 @@ Creatinine Clearance Estimator Tool
 </form>
 </div>
 <h2>Assumptions</h2>
-This calculator is based off of <a href="https://www.whhs.com/">Washington Hospital</a> protocols. Some of its assumptions are that
+This calculator is based off of <a href="/Rotations/Washington Hospital/Protocols/Adult Renal Dosing Protocol.pdf">Washington Hospital renal dosing protocols</a>. Some of its assumptions are that
 <ul>
 	<li>Serum creatinine is rounded to 0.8 if the actual value is below</li>
 	<li>Adjusted body weight is used if actual weight is greater or equal to 120% of ideal body weight</li>
@@ -191,5 +198,5 @@ Some special assumptions not part of the protocol are that
 	<li>The Hume equation is used if the patient is less than 60 inches to calculate ideal body weight</li>
 </ul>
 <br><br>
-Return back to the <a href="/">home page</a>.
+Return back to home page <a href="/">here</a>. See how the calculations are performed <a href="crcl.jpg">here</a>.<br><br>
 </body>

@@ -5,7 +5,7 @@
 ############### Settings ###############
 ########################################
 
-# Return to form URL
+# Form URL
 url = "javascript:history.back()"
 
 # Limits on when to use adjusted body weight, e.g. 1.2 = >120% of IBW
@@ -128,7 +128,9 @@ returnMsg = "<br>Return <a href='{}'>back</a>".format(url)
 
 print("Content-type: text/html")
 print("")	
-print("<!DOCTYPE html><head><style>body { font-family: 'Trebuchet MS' } ::selection { color: black; background: #fff200; } </style></head>")
+print("<!DOCTYPE html>")
+print("<style>body { font-family: 'Trebuchet MS' } ::selection { color: black; background: #fff200; } </style>")
+print("</head>")
 
 # Obtain user input
 # Note that if no value is supplied, variable obtains a value "None" (NoneType, not a String Type)
@@ -145,6 +147,9 @@ if None in ({scr, age, gender, height, hUnit, weight, wUnit}):
 	print("<title>Error</title>One or more parameters have not been set. Please recheck the form to make sure all fields have been entered.")
 	print(returnMsg)
 	sys.exit()
+elif scr == "0":
+        print("You dummy you can't divide by zero for the serum creatinine")
+        sys.exit()
 else:
 	# Validates input. If not valid run error.
 	ageRE = re.compile(r"^[0-9]{1,3}$")
@@ -261,7 +266,7 @@ print("Body weight used in the formula {} kg.<br>".format(round(formulaWt,2)))
 print("SCr = {} mg/dL.<br>".format(scr))
 print("<br><br>")
 
-print("[((140 - {})* {}) / (72 * {})]   ".format(age, formulaWt, scr))
+print("[((140 - {})* {}) / (72 * {})]   ".format(age, round(formulaWt,2), scr))
 if (gender == "f"):
 	print('* 0.85  ')
 print('=  ')
